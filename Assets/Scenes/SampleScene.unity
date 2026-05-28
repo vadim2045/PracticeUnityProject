@@ -880,8 +880,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a536d049c08641848a750a385c2e519a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RobotMovement
-  RoboticsParent: {fileID: 1578551405}
-  dropZone: {fileID: 750707038}
+  RoboticsParent: {fileID: 0}
+  dropZone: {fileID: 0}
 --- !u!114 &1211806097
 MonoBehaviour:
   m_ObjectHideFlags: 0

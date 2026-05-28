@@ -32,12 +32,13 @@ public class AlgSave : MonoBehaviour
             }
             actionGlobal += action;
         }
-        Debug.Log(actionGlobal);
+        //Debug.Log(actionGlobal);
         for (int i = 0; i < RoboticsParent.transform.childCount; i++)
         {
             if ((int)(RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Robot_ID").value) == 0)
             {
                 RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Robotics").value = actionGlobal;
+                RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Loaded").value = true;
             }
         }
     }

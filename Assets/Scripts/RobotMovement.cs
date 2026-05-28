@@ -8,57 +8,29 @@ using UnityEngine.Timeline;
 
 public class RobotMovement : MonoBehaviour
 {
-    enum Rotation
-    {
-        Down, Left, Up, Right
-    };
-    enum Action
-    {
-        move, turn, interact, repeat
-    };
-    bool done = false;
-    int repeatCount;
-    Action repeatAction;
-
-    Rotation rotation = Rotation.Right;
     public List<string> Robotics { get; private set; } = new List<string>();
     public bool isMoving = true;
     private float moveDistance = 27.2f;
 
     void Move()
     {
-        if (rotation == Rotation.Down)
-        {
-            transform.Translate(Vector3.down * moveDistance);
-        }
-        if (rotation == Rotation.Left)
-        {
-            transform.Translate(Vector3.left * moveDistance);
-        }
-        if (rotation == Rotation.Up)
-        {
-            transform.Translate(Vector3.up * moveDistance);
-        }
-        if (rotation == Rotation.Right)
-        {
-            transform.Translate(Vector3.right * moveDistance);
-        }
+        transform.Translate(Vector3.right * moveDistance);
     }
     void Turn(string act)
     {
         if (act.Split(' ')[1] == "налево")
         {
-            rotation = (Rotation)(((int)rotation - 1) % 4);
+            transform.Rotate(0, 0, (transform.rotation.z + 90f + 360f) % 360f);
         }
         else
         {
-            rotation = (Rotation)(((int)rotation + 1) % 4);
+            transform.Rotate(0, 0, (transform.rotation.z - 90f + 360f) % 360f);
         }
     }
 
     void Act(string act)
     {
-        //Debug.Log("ПОВОРАЧИВАЮ" + act);
+        //Debug.Log(act);
         if (act == "Идти")
         {
             Move();
@@ -78,52 +50,37 @@ public class RobotMovement : MonoBehaviour
 
     }
 
-    int j = 0;
-    void Update()
-    {
-        done = false;
-    }
     void FixedUpdate()
     {
-        bool error = false;
-        if (!done)
-        {
-            //Debug.Log(((string)GetComponent<Variables>().declarations.GetDeclaration("Robotics").value));
+        if (Robotics.Count == 0 && (bool)GetComponent<Variables>().declarations.GetDeclaration("Loaded").value)
             if (((string)GetComponent<Variables>().declarations.GetDeclaration("Robotics").value).Trim() != "")
             {
                 Robotics = ((string)GetComponent<Variables>().declarations.GetDeclaration("Robotics").value).Split(';').ToList<string>();
-                Robotics.RemoveAt(Robotics.Count - 1);
-                foreach (var s in Robotics)
-                    Debug.Log(s);
             }
             else
             {
-                error = true;
-                j = 0;
                 Robotics = new List<string>();
-                //Debug.Log(Robotics.Count);
+                GetComponent<Variables>().declarations.GetDeclaration("Loaded").value = false;
             }
-            if ((Robotics.Count > 0) || !error)
+        if (Robotics.Count > 0)
+        {
+            if (Robotics.First() == "Идти" || Robotics.First().Split(' ')[0] == "Повернуть" || Robotics.First() == "Поднять/положить")
+                Act(Robotics.First());
+
+            else if (Robotics.First().Split(' ')[0] == "Повторить")
             {
-                if (j + 1 == Robotics.Count)
-                    j = 0;
-                if (Robotics[j] == "Идти" || Robotics[j].Split(' ')[0] == "Повернуть" || Robotics[j] == "Поднять/положить")
-                    Act(Robotics[j]);
-                else if (Robotics[j].Split(' ')[0] == "Повторить")
+                if (Robotics.Count > 1)
                 {
-                    if (Robotics.Count != j + 1)
+                    int n = int.Parse(Robotics.First().Split(' ')[1]);
+                    Robotics.RemoveAt(0);
+                    for (int i = 0; i < n; i++)
                     {
-                        for (int i = 0; i < int.Parse(Robotics[j].Split(' ')[1]); i++)
-                        {
-                            Act(Robotics[j + 1]);
-                        }
-                        j++;
+                        Robotics.Insert(0, Robotics[0]);
                     }
+
                 }
-                j++;
-                done = true;
             }
+            Robotics.RemoveAt(0);
         }
     }
 }
-
