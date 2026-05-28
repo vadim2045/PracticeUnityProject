@@ -16,6 +16,86 @@ public class RobotMovement : MonoBehaviour
     };
     Rotation rotation = Rotation.Down;
 
+    struct ActionPoints
+    {
+        Point coords;
+        string name;
+        int id_inp1;
+        int id_inp2;
+        int id_inp3;
+        int id_out;
+        public ActionPoints(Point coords, string name, int id_out, int id_inp1 = -1, int id_inp2 = -1, int id_inp3 = -1)
+        {
+            this.coords = coords;
+            this.name = name;
+            this.id_out = id_out;
+            this.id_inp1 = id_inp1;
+            this.id_inp2 = id_inp2;
+            this.id_inp3 = id_inp3;
+            
+        }
+    }
+    struct storage
+    {
+        int id;
+        int current;
+    }
+    enum Resources
+    {
+        Error = -1,
+        Nothing = 0,
+        Iron_ore = 1,
+        Iron_ingot = 2,
+        Iron_plate = 3,
+        Iron_pipe = 4,
+        Copper_ore = 5,
+        Copper_Ingot = 6,
+        Copper_wire = 7,
+        Microchip = 8
+    };
+
+
+    ActionPoints[] actionPoints = // Присутствует возможность класть\брать предметы черзе стены, это не баг, а фича!!! (iron plate, iron ingot, copper wire)
+    {
+        new ActionPoints(new Point (0, 0), "Iron ore", 1, 1),
+        new ActionPoints(new Point (0, 2), "Copper ore", 5, 5),
+
+        new ActionPoints(new Point (1, 7), "Iron furnace input", 0, 1),
+        new ActionPoints(new Point (1, 9), "Iron furnace output", 2),
+
+        new ActionPoints(new Point (1, 12), "Copper  furnace input", 0, 5),
+        new ActionPoints(new Point (1, 14), "Copper  furnace output", 6),
+        
+        new ActionPoints(new Point (2, 0), "Iron ingot crate", 2, 2),
+        new ActionPoints(new Point (3, 0), "Copper ingot crate", 6, 6),
+        new ActionPoints(new Point (4, 0), "Iron plate crate", 3, 3),
+        new ActionPoints(new Point (5, 0), "Copper wire crate", 7, 7),
+        new ActionPoints(new Point (6, 0), "Iron pipe crate", 4, 4),
+        new ActionPoints(new Point (7, 0), "Microchip crate", 8, 8),
+
+        new ActionPoints(new Point (11, 2), "Monitor room input", 0, 3, 7),
+
+        new ActionPoints(new Point (18, 3), "Energy station input", 0, 8),
+
+        new ActionPoints(new Point (5, 8), "Iron plate input", 0, 2),
+        new ActionPoints(new Point (9, 8), "Iron plate output", 3),
+
+        new ActionPoints(new Point (10, 8), "Iron pipe input", 0, 3),
+        new ActionPoints(new Point (15, 8), "Iron pipe output", 4),
+
+        new ActionPoints(new Point (5, 11), "Copper wire input", 0, 6),
+        new ActionPoints(new Point (9, 11), "Copper wire output", 7),
+
+        new ActionPoints(new Point (10, 11), "Microchip input", 0, 3, 7),
+        new ActionPoints(new Point (14, 11), "Microchip output", 8),
+
+        new ActionPoints(new Point (2, 5), "Iron furnace unlock", 0, 1),
+        new ActionPoints(new Point (5, 7), "Iron plate unlock", 0, 2),
+        new ActionPoints(new Point (10, 7), "Iron pipe unlock", 0, 3),
+        new ActionPoints(new Point (2, 10), "Copper furnace unlock", 0, 2),
+        new ActionPoints(new Point (5, 12), "Copper wire unlock", 0, 3, 6),
+        new ActionPoints(new Point (10, 12), "Microchip unlock", 0, 3, 4, 7)
+    };
     public List<string> Robotics { get; private set; } = new List<string>();
     public bool isMoving = true;
     private float moveDistance = 27.2f;

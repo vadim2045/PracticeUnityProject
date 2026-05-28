@@ -11,6 +11,7 @@ public class AlgSave : MonoBehaviour
     public GameObject RoboticsParent;
     public GameObject dropZone;
     string actionGlobal;
+    int Robot_ID = 0; // NEW ROBOT ID
     public void getList()
     {
         actionGlobal = "";
@@ -34,7 +35,7 @@ public class AlgSave : MonoBehaviour
         }
         for (int i = 0; i < RoboticsParent.transform.childCount; i++)
         {
-            if ((int)(RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Robot_ID").value) == 0)
+            if ((int)(RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Robot_ID").value) == Robot_ID)
             {
                 RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Robotics").value = actionGlobal;
                 RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Loaded").value = true;
