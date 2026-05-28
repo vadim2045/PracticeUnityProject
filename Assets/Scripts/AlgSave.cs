@@ -32,7 +32,6 @@ public class AlgSave : MonoBehaviour
             }
             actionGlobal += action;
         }
-        //Debug.Log(actionGlobal);
         for (int i = 0; i < RoboticsParent.transform.childCount; i++)
         {
             if ((int)(RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Robot_ID").value) == 0)
