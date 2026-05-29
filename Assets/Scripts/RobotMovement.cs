@@ -19,7 +19,7 @@ public class RobotMovement : MonoBehaviour
     };
     Rotation rotation = Rotation.Down;
 
-    struct ActionPoints
+    public struct ActionPoints
     {
         public Point coords;
         public string name;
@@ -56,7 +56,7 @@ public class RobotMovement : MonoBehaviour
         Copper_wire = 7,
         Microchip = 8
     };
-    static ActionPoints[] actionPoints = // Присутствует возможность класть\брать предметы черзе стены, это не баг, а фича!!! (iron plate, iron ingot, copper wire)
+    static public ActionPoints[] actionPoints = // Присутствует возможность класть\брать предметы черзе стены, это не баг, а фича!!! (iron plate, iron ingot, copper wire)
     {
         new ActionPoints(new Point (2, 0), "Iron ingot crate", 2, 2), // 0
         new ActionPoints(new Point (3, 0), "Copper ingot crate", 6, 6),
@@ -327,6 +327,10 @@ public class RobotMovement : MonoBehaviour
                                     actionPoints[n].id_inp1 = -1;
                                     actionPoints[n].current1 = 0;
                                     roomLocks[0].GetComponent<SpriteRenderer>().enabled = false;
+                                    roomLocks[0].GetComponent<Canvas>().enabled = false;
+
+                                    roomLocks[1].GetComponent<Canvas>().enabled = true;
+                                    roomLocks[3].GetComponent<Canvas>().enabled = true;
                                 }
                                 else if (n == 25)
                                 {
@@ -334,6 +338,9 @@ public class RobotMovement : MonoBehaviour
                                     actionPoints[n].id_inp1 = -1;
                                     actionPoints[n].current1 = 0;
                                     roomLocks[3].GetComponent<SpriteRenderer>().enabled = false;
+                                    roomLocks[3].GetComponent<Canvas>().enabled = false;
+
+                                    roomLocks[4].GetComponent<Canvas>().enabled = true;
                                 }
                                 else if (n == 23)
                                 {
@@ -341,6 +348,9 @@ public class RobotMovement : MonoBehaviour
                                     actionPoints[n].id_inp1 = -1;
                                     actionPoints[n].current1 = 0;
                                     roomLocks[1].GetComponent<SpriteRenderer>().enabled = false;
+                                    roomLocks[1].GetComponent<Canvas>().enabled = false;
+
+                                    roomLocks[2].GetComponent<Canvas>().enabled = true;
                                 }
                                 else if (n == 24)
                                 {
@@ -348,6 +358,7 @@ public class RobotMovement : MonoBehaviour
                                     actionPoints[n].id_inp1 = -1;
                                     actionPoints[n].current1 = 0;
                                     roomLocks[2].GetComponent<SpriteRenderer>().enabled = false;
+                                    roomLocks[2].GetComponent<Canvas>().enabled = false;
                                 }
                             }
                         }
@@ -370,6 +381,9 @@ public class RobotMovement : MonoBehaviour
                                 actionPoints[n].current1 = 0;
                                 actionPoints[n].current2 = 0;
                                 roomLocks[4].GetComponent<SpriteRenderer>().enabled = false;
+                                roomLocks[4].GetComponent<Canvas>().enabled = false;
+
+                                roomLocks[5].GetComponent<Canvas>().enabled = true;
                             }
                         }
                         else if (n == 27)
@@ -397,6 +411,7 @@ public class RobotMovement : MonoBehaviour
                                 actionPoints[n].current2 = 0;
                                 actionPoints[n].current3 = 0;
                                 roomLocks[5].GetComponent<SpriteRenderer>().enabled = false;
+                                roomLocks[5].GetComponent<Canvas>().enabled = false;
                             }
                         }
                     }
@@ -409,7 +424,7 @@ public class RobotMovement : MonoBehaviour
             }
         }
     }
-    static string[] Images =
+    public static string[] Images =
     {
         "", "Iron_ore", "Iron_ingot", "Iron_plate", "Iron_pipe", "Copper_ore", "Copper_ingot", "Copper_wire", "Microchip"
     };
