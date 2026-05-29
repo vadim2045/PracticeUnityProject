@@ -69,38 +69,39 @@ public class RobotMovement : MonoBehaviour
         new ActionPoints(new Point (0, 2), "Copper ore", 5, 5, current1:10000000),
 
 
-        new ActionPoints(new Point (1, 7), "Iron furnace input", 0, 1), // 8
+        new ActionPoints(new Point (1, 7), "Iron furnace input", -1, 1), // 8
         new ActionPoints(new Point (1, 9), "Iron furnace output", 2),
-        new ActionPoints(new Point (5, 8), "Iron plate input", 0, 2),
+        new ActionPoints(new Point (5, 8), "Iron plate input", -1, 2),
         new ActionPoints(new Point (9, 8), "Iron plate output", 3),
-        new ActionPoints(new Point (10, 8), "Iron pipe input", 0, 3),
-        new ActionPoints(new Point (15, 8), "Iron pipe output", 4),
+        new ActionPoints(new Point (10, 8), "Iron pipe input", -1, 3), // 12
+        new ActionPoints(new Point (14, 8), "Iron pipe output", 4), // 13
 
 
-        new ActionPoints(new Point (1, 12), "Copper  furnace input", 0, 5),
+        new ActionPoints(new Point (1, 12), "Copper  furnace input", -1, 5),
         new ActionPoints(new Point (1, 14), "Copper  furnace output", 6),
-        new ActionPoints(new Point (5, 11), "Copper wire input", 0, 6),
+        new ActionPoints(new Point (5, 11), "Copper wire input", -1, 6),
         new ActionPoints(new Point (9, 11), "Copper wire output", 7), // 17
 
 
-        new ActionPoints(new Point (10, 11), "Microchip input", 0, 3, 7), // 18
+        new ActionPoints(new Point (10, 11), "Microchip input", -1, 3, 7), // 18
         new ActionPoints(new Point (14, 11), "Microchip output", 8),
 
-        new ActionPoints(new Point (11, 2), "Monitor room input", 0, 3, 7), // 20
+        new ActionPoints(new Point (11, 2), "Monitor room input", -1, 3, 7), // 20
 
-        new ActionPoints(new Point (18, 3), "Energy station input", 0, 8),
+        new ActionPoints(new Point (18, 3), "Energy station input", -1, 8), // 21
 
-        new ActionPoints(new Point (2, 5), "Iron furnace unlock", 0, 1), // 22
-        new ActionPoints(new Point (5, 7), "Iron plate unlock", 0, 2),
-        new ActionPoints(new Point (10, 7), "Iron pipe unlock", 0, 3),
-        new ActionPoints(new Point (2, 10), "Copper furnace unlock", 0, 2), // 25
-        new ActionPoints(new Point (5, 12), "Copper wire unlock", 0, 3, 6), // 26
-        new ActionPoints(new Point (10, 12), "Microchip unlock", 0, 3, 4, 7) // 27
+        new ActionPoints(new Point (2, 5), "Iron furnace unlock", -1, 1), // 22
+        new ActionPoints(new Point (5, 7), "Iron plate unlock", -1, 2), // 23
+        new ActionPoints(new Point (10, 7), "Iron pipe unlock", -1, 3), // 24
+        new ActionPoints(new Point (2, 10), "Copper furnace unlock", -1, 2), // 25
+        new ActionPoints(new Point (5, 12), "Copper wire unlock", -1, 3, 6), // 26
+        new ActionPoints(new Point (10, 12), "Microchip unlock", -1, 3, 4, 7) // 27
     };
     public List<string> Robotics { get; private set; } = new List<string>();
     public bool isMoving = true;
     private float moveDistance = 54f;
     Point startPoint = new Point(1, 1);
+    public GameObject[] roomLocks;
     int[,] matrix =
     {
         // 0  — стен нет (можно идти везде)
@@ -110,15 +111,15 @@ public class RobotMovement : MonoBehaviour
         // 8  — стена слева (нельзя Left)
         { 15, 13, 15, 13, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15},
         { 11, 0, 8, 0, 12, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15},
-        { 15, 1, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 12, 15, 15, 15, 15, 15},
+        { 15, 1, 0, 0, 4/* Iron furnace room 0 = unlock, 4 = lock*/, 8, 8, 8, 8, 12/* Copper furnace room 8 = unlock, 12 = lock*/, 8, 8, 8, 8, 12, 15, 15, 15, 15, 15},
         { 15, 1, 0, 0, 4, 1, 0, 0, 0, 4, 1, 0, 0, 0, 4, 15, 15, 15, 15, 15},
-        { 15, 1, 0, 0, 4, 3, 2, 0, 2, 6, 3, 2, 0, 2, 6, 15, 15, 15, 15, 15},
+        { 15, 1, 0, 0, 4, 3, 2, 2/* Iron plate room 0 = unlock, 2 = lock*/, 2, 6, 3, 2, 2/* Copper wire room 0 = unlock, 2 = lock*/, 2, 6, 15, 15, 15, 15, 15},
 
         { 15, 1, 0, 0, 4, 9, 8, 4, 15, 15, 15, 15, 1, 8, 12, 15, 15, 15, 15, 15 },
         { 15, 1, 0, 0, 4, 1, 0, 4, 15, 15, 15, 15, 1, 0, 4, 15, 15, 15, 15, 15},
         { 15, 1, 0, 0, 4, 1, 0, 4, 15, 15, 15, 15, 1, 0, 4, 15, 15, 15, 15, 15},
         { 9, 0, 0, 0, 4, 1, 0, 4, 15, 15, 15, 15, 1, 0, 4, 15, 15, 15, 15, 15},
-        { 3, 2, 2, 0, 4, 3, 2, 4, 15, 15, 15, 15, 1, 2, 6, 15, 15, 15, 15, 15},
+        { 3, 2, 2, 0, 4, 3, 2, 6/* Iron pipe room 4 = unlock, 6 = lock*/, 15, 15, 15, 15, 3/* Microchip room 1 = unlock, 3 = lock*/, 2, 6, 15, 15, 15, 15, 15},
 
         { 15, 15, 15, 1, 4, 9, 8, 4, 15, 15, 15, 15, 1, 8, 12, 15, 15, 15, 15, 15},
         { 15, 15, 15, 1, 4, 1, 0, 4, 15, 15, 15, 15, 1, 0, 4, 15, 15, 15, 15, 15},
@@ -132,12 +133,6 @@ public class RobotMovement : MonoBehaviour
         { 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15},
         { 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15}
     };
-
-    static bool[] unlockedRooms =
-    {
-        false, false, false, false, false, false
-    };
-
     int newRotation(Rotation rot)
     {
         switch (rot)
@@ -196,7 +191,6 @@ public class RobotMovement : MonoBehaviour
         }
         //Debug.Log(rotation);
     }
-
     void Act(string act)
     {
         if (act == "Идти")
@@ -212,7 +206,6 @@ public class RobotMovement : MonoBehaviour
             Interact();
         }
     }
-
     void Interact()
     {
         int ID_in_hand = (int)GetComponent<Variables>().declarations.GetDeclaration("Resource_ID").value;
@@ -257,15 +250,16 @@ public class RobotMovement : MonoBehaviour
             if (point.coords == temp)
             {
                 //Debug.Log(point.name + point.current);
+                // PICKUP
                 if (ID_in_hand == 0 && point.id_out != -1)
                 {
                     if (point.current1 > 0)
                     {
                         int n = Array.FindIndex(actionPoints, x => x.coords == point.coords);
 
-                        //Debug.Log(actionPoints[n].name + " " + actionPoints[n].current);
+                        //Debug.Log(actionPoints[n].name + " " + actionPoints[n].current1);
                         actionPoints[n].current1--;
-                        //Debug.Log(actionPoints[n].name + " " + actionPoints[n].current);
+                        //Debug.Log(actionPoints[n].name + " " + actionPoints[n].current1);
 
                         GetComponent<Variables>().declarations.GetDeclaration("Resource_ID").value = point.id_out;
 
@@ -286,6 +280,7 @@ public class RobotMovement : MonoBehaviour
                     if (n == 8 || n == 10 || n == 12 || n == 14 || n == 16) // Для столов из 1 элемента
                     {
                         actionPoints[n + 1].current1++;
+                        //Debug.Log(actionPoints[n + 1].current1 + actionPoints[n+1].name);
                     } 
                     else if (n == 18 || n == 20)
                     {
@@ -315,7 +310,7 @@ public class RobotMovement : MonoBehaviour
                         actionPoints[n].current1++;
                         if (n == 21 && actionPoints[n].current1 >= 25)
                         {
-                            // POBEDA();
+                            // POBEDA(); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                         }
                     }
                     else if (n >= 22)
@@ -326,47 +321,85 @@ public class RobotMovement : MonoBehaviour
                             if (actionPoints[n].current1 >= ((n - 21) * 5))
                             {
                                 // Unlock_room_N();
+                                if (n == 22)
+                                {
+                                    matrix[actionPoints[n].coords.X,actionPoints[n].coords.Y-1] = 0;
+                                    actionPoints[n].id_inp1 = -1;
+                                    actionPoints[n].current1 = 0;
+                                    roomLocks[0].GetComponent<SpriteRenderer>().enabled = false;
+                                }
+                                else if (n == 25)
+                                {
+                                    matrix[actionPoints[n].coords.X, actionPoints[n].coords.Y - 1] = 8;
+                                    actionPoints[n].id_inp1 = -1;
+                                    actionPoints[n].current1 = 0;
+                                    roomLocks[3].GetComponent<SpriteRenderer>().enabled = false;
+                                }
+                                else if (n == 23)
+                                {
+                                    matrix[actionPoints[n].coords.X - 1, actionPoints[n].coords.Y] = 0;
+                                    actionPoints[n].id_inp1 = -1;
+                                    actionPoints[n].current1 = 0;
+                                    roomLocks[1].GetComponent<SpriteRenderer>().enabled = false;
+                                }
+                                else if (n == 24)
+                                {
+                                    matrix[actionPoints[n].coords.X - 1, actionPoints[n].coords.Y] = 4;
+                                    actionPoints[n].id_inp1 = -1;
+                                    actionPoints[n].current1 = 0;
+                                    roomLocks[2].GetComponent<SpriteRenderer>().enabled = false;
+                                }
                             }
                         }
                         else if (n == 26)
                         {
-                            if (actionPoints[n].id_inp1 == ID_in_hand)
+                            if (actionPoints[n].id_inp1 == ID_in_hand && actionPoints[n].current1 <= 10)
                             {
                                 actionPoints[n].current1++;
                             }
-                            else
+                            else if (actionPoints[n].id_inp2 == ID_in_hand && actionPoints[n].current2 <= 20)
                             {
                                 actionPoints[n].current2++;
                             }
-                            if (actionPoints[n].current1 >= 20 && actionPoints[n].current2 >= 20) // For unlock wire 
+                            if (actionPoints[n].current1 >= 10 && actionPoints[n].current2 >= 20) // For unlock wire 
                             {
                                 // UNLOCK ROOM
+                                matrix[actionPoints[n].coords.X - 1, actionPoints[n].coords.Y] = 0;
+                                actionPoints[n].id_inp1 = -1;
+                                actionPoints[n].id_inp2 = -1;
+                                actionPoints[n].current1 = 0;
+                                actionPoints[n].current2 = 0;
+                                roomLocks[4].GetComponent<SpriteRenderer>().enabled = false;
                             }
                         }
                         else if (n == 27)
                         {
-                            if (actionPoints[n].id_inp1 == ID_in_hand)
+                            if (actionPoints[n].id_inp1 == ID_in_hand && actionPoints[n].current1 <= 20)
                             {
                                 actionPoints[n].current1++;
                             }
-                            else if (actionPoints[n].id_inp2 == ID_in_hand)
+                            else if (actionPoints[n].id_inp2 == ID_in_hand && actionPoints[n].current2 <= 10)
                             {
                                 actionPoints[n].current2++;
                             }
-                            else
+                            else if (actionPoints[n].id_inp3 == ID_in_hand && actionPoints[n].current3 <= 30)
                             {
                                 actionPoints[n].current3++;
-                            }
+                            } 
                             if (actionPoints[n].current1 >= 20 && actionPoints[n].current2 >= 10 && actionPoints[n].current3 >= 30) // Microchip room
                             {
                                 // UNLOCK ROOM
+                                matrix[actionPoints[n].coords.X - 1, actionPoints[n].coords.Y] = 1;
+                                actionPoints[n].id_inp1 = -1;
+                                actionPoints[n].id_inp2 = -1;
+                                actionPoints[n].id_inp3 = -1;
+                                actionPoints[n].current1 = 0;
+                                actionPoints[n].current2 = 0;
+                                actionPoints[n].current3 = 0;
+                                roomLocks[5].GetComponent<SpriteRenderer>().enabled = false;
                             }
                         }
                     }
-
-
-
-
                     //Debug.Log(actionPoints[n].name + " " + actionPoints[n].current);
                     //Debug.Log(actionPoints[n+1].name + " " + actionPoints[n+1].current);
                     GetComponent<Variables>().declarations.GetDeclaration("Resource_ID").value = 0;
