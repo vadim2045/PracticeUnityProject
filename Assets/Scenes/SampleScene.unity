@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 28197229}
   - component: {fileID: 28197228}
   - component: {fileID: 28197227}
+  - component: {fileID: 28197231}
   m_Layer: 0
   m_Name: Iron_plate_box
   m_TagString: Untagged
@@ -497,6 +498,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &28197231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28197225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a873ecc9b7d06434ab1f8e962907938c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropIntoLayout
+  dropZone: {fileID: 0}
 --- !u!1 &93856553
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,6 +1015,7 @@ GameObject:
   - component: {fileID: 152640449}
   - component: {fileID: 152640451}
   - component: {fileID: 152640450}
+  - component: {fileID: 152640452}
   m_Layer: 0
   m_Name: Iron_ingot_box
   m_TagString: Untagged
@@ -1136,6 +1151,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152640446}
   m_CullTransparentMesh: 1
+--- !u!114 &152640452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152640446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a873ecc9b7d06434ab1f8e962907938c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropIntoLayout
+  dropZone: {fileID: 0}
 --- !u!1 &162832219
 GameObject:
   m_ObjectHideFlags: 0
@@ -1434,6 +1462,7 @@ GameObject:
   - component: {fileID: 214471723}
   - component: {fileID: 214471722}
   - component: {fileID: 214471721}
+  - component: {fileID: 214471725}
   m_Layer: 0
   m_Name: Microchip_room_lock
   m_TagString: Untagged
@@ -1570,6 +1599,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &214471725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214471719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a873ecc9b7d06434ab1f8e962907938c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropIntoLayout
+  dropZone: {fileID: 0}
 --- !u!1 &227917741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,7 +1628,6 @@ GameObject:
   - component: {fileID: 227917745}
   - component: {fileID: 227917744}
   - component: {fileID: 227917743}
-  - component: {fileID: 227917742}
   m_Layer: 0
   m_Name: Screen_4
   m_TagString: Untagged
@@ -1594,18 +1635,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &227917742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 227917741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b6e0d06c7bd7de48845de1ddae487f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InfoScreen
 --- !u!114 &227917743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2669,6 +2698,7 @@ GameObject:
   - component: {fileID: 397499271}
   - component: {fileID: 397499270}
   - component: {fileID: 397499269}
+  - component: {fileID: 397499273}
   m_Layer: 0
   m_Name: Iron_pipe_box
   m_TagString: Untagged
@@ -2804,6 +2834,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &397499273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397499267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a873ecc9b7d06434ab1f8e962907938c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropIntoLayout
+  dropZone: {fileID: 0}
 --- !u!1 &410948198
 GameObject:
   m_ObjectHideFlags: 0
@@ -3615,7 +3658,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 986656839}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InfoScreen, Assembly-CSharp
         m_MethodName: Enter
         m_Mode: 2
@@ -4367,7 +4410,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2242, y: -542}
+  m_AnchoredPosition: {x: -1398, y: -394}
   m_SizeDelta: {x: 8.52, y: 9.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &543461447
@@ -4758,6 +4801,7 @@ GameObject:
   - component: {fileID: 589325126}
   - component: {fileID: 589325125}
   - component: {fileID: 589325124}
+  - component: {fileID: 589325128}
   m_Layer: 0
   m_Name: Copper_wire_room_lock
   m_TagString: Untagged
@@ -4894,6 +4938,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &589325128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589325122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a873ecc9b7d06434ab1f8e962907938c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropIntoLayout
+  dropZone: {fileID: 0}
 --- !u!1 &619017925
 GameObject:
   m_ObjectHideFlags: 0
@@ -5128,6 +5185,7 @@ GameObject:
   - component: {fileID: 633491808}
   - component: {fileID: 633491807}
   - component: {fileID: 633491806}
+  - component: {fileID: 633491810}
   m_Layer: 0
   m_Name: Iron_pipe_room_lock
   m_TagString: Untagged
@@ -5264,6 +5322,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &633491810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633491804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a873ecc9b7d06434ab1f8e962907938c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropIntoLayout
+  dropZone: {fileID: 0}
 --- !u!1 &653234593
 GameObject:
   m_ObjectHideFlags: 0
@@ -5807,7 +5878,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2227, y: 855}
+  m_AnchoredPosition: {x: -1383, y: 1003}
   m_SizeDelta: {x: 8.52, y: 4.97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &669517405
@@ -6472,6 +6543,7 @@ GameObject:
   - component: {fileID: 702529728}
   - component: {fileID: 702529727}
   - component: {fileID: 702529726}
+  - component: {fileID: 702529730}
   m_Layer: 0
   m_Name: Microchip_box
   m_TagString: Untagged
@@ -6607,6 +6679,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &702529730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702529724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a873ecc9b7d06434ab1f8e962907938c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropIntoLayout
+  dropZone: {fileID: 0}
 --- !u!1 &704921090
 GameObject:
   m_ObjectHideFlags: 0
@@ -6883,10 +6968,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 10
     m_Right: 10
-    m_Top: 10
-    m_Bottom: 10
+    m_Top: 30
+    m_Bottom: 200
   m_ChildAlignment: 1
-  m_Spacing: 10
+  m_Spacing: 36
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -8288,6 +8373,7 @@ GameObject:
   - component: {fileID: 963013276}
   - component: {fileID: 963013275}
   - component: {fileID: 963013274}
+  - component: {fileID: 963013278}
   m_Layer: 0
   m_Name: Copper_ingot_box
   m_TagString: Untagged
@@ -8423,6 +8509,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &963013278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963013272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a873ecc9b7d06434ab1f8e962907938c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropIntoLayout
+  dropZone: {fileID: 0}
 --- !u!1 &986656838
 GameObject:
   m_ObjectHideFlags: 0
@@ -8439,7 +8538,6 @@ GameObject:
   - component: {fileID: 986656842}
   - component: {fileID: 986656841}
   - component: {fileID: 986656840}
-  - component: {fileID: 986656839}
   m_Layer: 0
   m_Name: Screen_5
   m_TagString: Untagged
@@ -8447,18 +8545,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &986656839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 986656838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b6e0d06c7bd7de48845de1ddae487f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InfoScreen
 --- !u!114 &986656840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8653,7 +8739,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 668, y: 1083}
+  m_AnchoredPosition: {x: 672, y: 1200}
   m_SizeDelta: {x: 8.52, y: 6.61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1015219515
@@ -8912,6 +8998,7 @@ GameObject:
   - component: {fileID: 1055174727}
   - component: {fileID: 1055174726}
   - component: {fileID: 1055174725}
+  - component: {fileID: 1055174729}
   m_Layer: 0
   m_Name: Copper_furnace_room_lock
   m_TagString: Untagged
@@ -9048,6 +9135,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1055174729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055174723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a873ecc9b7d06434ab1f8e962907938c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropIntoLayout
+  dropZone: {fileID: 0}
 --- !u!1 &1060663367
 GameObject:
   m_ObjectHideFlags: 0
@@ -9703,6 +9803,7 @@ GameObject:
   - component: {fileID: 1132352441}
   - component: {fileID: 1132352440}
   - component: {fileID: 1132352439}
+  - component: {fileID: 1132352443}
   m_Layer: 0
   m_Name: Iron_plate_room_lock
   m_TagString: Untagged
@@ -9839,6 +9940,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1132352443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132352437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a873ecc9b7d06434ab1f8e962907938c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropIntoLayout
+  dropZone: {fileID: 0}
 --- !u!1 &1182521693
 GameObject:
   m_ObjectHideFlags: 0
@@ -10012,7 +10126,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 260, y: -397.5}
+  m_AnchoredPosition: {x: 197, y: -301}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1211806096
@@ -10852,6 +10966,18 @@ PrefabInstance:
       value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -10885,7 +11011,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 37.5
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -10898,6 +11024,10 @@ PrefabInstance:
     - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9116522447079385416, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
       propertyPath: m_text
@@ -11049,7 +11179,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 227917742}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InfoScreen, Assembly-CSharp
         m_MethodName: Enter
         m_Mode: 2
@@ -12311,6 +12441,7 @@ GameObject:
   - component: {fileID: 1536516636}
   - component: {fileID: 1536516638}
   - component: {fileID: 1536516637}
+  - component: {fileID: 1536516639}
   m_Layer: 0
   m_Name: Iron_furnace_room_lock
   m_TagString: Untagged
@@ -12447,6 +12578,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1536516639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536516633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a873ecc9b7d06434ab1f8e962907938c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropIntoLayout
+  dropZone: {fileID: 0}
 --- !u!1 &1546161615
 GameObject:
   m_ObjectHideFlags: 0
@@ -14723,7 +14867,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2227, y: 250}
+  m_AnchoredPosition: {x: -1383, y: 398}
   m_SizeDelta: {x: 8.52, y: 6.61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1912620783
@@ -16407,6 +16551,7 @@ GameObject:
   - component: {fileID: 2120014099}
   - component: {fileID: 2120014098}
   - component: {fileID: 2120014097}
+  - component: {fileID: 2120014101}
   m_Layer: 0
   m_Name: Copper_wire_box
   m_TagString: Untagged
@@ -16542,6 +16687,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2120014101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120014095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a873ecc9b7d06434ab1f8e962907938c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropIntoLayout
+  dropZone: {fileID: 0}
 --- !u!1 &2125821600
 GameObject:
   m_ObjectHideFlags: 0
@@ -16692,6 +16850,7 @@ GameObject:
   - component: {fileID: 2132203337}
   - component: {fileID: 2132203336}
   - component: {fileID: 2132203335}
+  - component: {fileID: 2132203338}
   m_Layer: 0
   m_Name: Station
   m_TagString: Untagged
@@ -16827,6 +16986,19 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &2132203338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132203332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a873ecc9b7d06434ab1f8e962907938c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropIntoLayout
+  dropZone: {fileID: 0}
 --- !u!1 &2141689879
 GameObject:
   m_ObjectHideFlags: 0
@@ -16931,6 +17103,7 @@ GameObject:
   - component: {fileID: 2143901043}
   - component: {fileID: 2143901042}
   - component: {fileID: 2143901044}
+  - component: {fileID: 2143901045}
   m_Layer: 0
   m_Name: Robot_room
   m_TagString: Untagged
@@ -17066,6 +17239,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2143901045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143901039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a873ecc9b7d06434ab1f8e962907938c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropIntoLayout
+  dropZone: {fileID: 0}
 --- !u!1001 &5399991486495472601
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17231,6 +17417,18 @@ PrefabInstance:
       value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 9053954785914227574, guid: a1dc351d449497244be0577840312107, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9053954785914227574, guid: a1dc351d449497244be0577840312107, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9053954785914227574, guid: a1dc351d449497244be0577840312107, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9053954785914227574, guid: a1dc351d449497244be0577840312107, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -17264,7 +17462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9053954785914227574, guid: a1dc351d449497244be0577840312107, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 147.5
+      value: 202
       objectReference: {fileID: 0}
     - target: {fileID: 9053954785914227574, guid: a1dc351d449497244be0577840312107, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -17277,6 +17475,10 @@ PrefabInstance:
     - target: {fileID: 9053954785914227574, guid: a1dc351d449497244be0577840312107, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9053954785914227574, guid: a1dc351d449497244be0577840312107, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17340,6 +17542,18 @@ PrefabInstance:
       value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -17373,7 +17587,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 202.5
+      value: 279
       objectReference: {fileID: 0}
     - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -17386,6 +17600,10 @@ PrefabInstance:
     - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523357351430602631, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9116522447079385416, guid: 0291df55f5e4bbf43afe9325a8cec034, type: 3}
       propertyPath: m_text
@@ -17517,6 +17735,18 @@ PrefabInstance:
       value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 1338402045666551705, guid: 848865dd733c26549999114222058004, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338402045666551705, guid: 848865dd733c26549999114222058004, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338402045666551705, guid: 848865dd733c26549999114222058004, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338402045666551705, guid: 848865dd733c26549999114222058004, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -17550,7 +17780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1338402045666551705, guid: 848865dd733c26549999114222058004, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 92.5
+      value: 124
       objectReference: {fileID: 0}
     - target: {fileID: 1338402045666551705, guid: 848865dd733c26549999114222058004, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -17563,6 +17793,10 @@ PrefabInstance:
     - target: {fileID: 1338402045666551705, guid: 848865dd733c26549999114222058004, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338402045666551705, guid: 848865dd733c26549999114222058004, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2080439257173570318, guid: 848865dd733c26549999114222058004, type: 3}
       propertyPath: m_Name
