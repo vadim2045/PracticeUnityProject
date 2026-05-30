@@ -455,8 +455,7 @@ public class RobotMovement : MonoBehaviour
             {
                 bool oneTime = (bool)GetComponent<Variables>().declarations.GetDeclaration("oneTime").value;
                 Robotics = ((string)GetComponent<Variables>().declarations.GetDeclaration("Robotics").value).Split(';').ToList<string>();
-                if (oneTime)
-                    GetComponent<Variables>().declarations.GetDeclaration("Loaded").value = false;
+                if (oneTime) GetComponent<Variables>().declarations.GetDeclaration("Loaded").value = false;
             }
             else
             {
