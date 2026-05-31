@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 40c443faeddb6d24186d0c162b47c6a3
+guid: 8ea837695c2abd74980222159349890d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4097144792221710411
-    second: coconut_0
+      213: 7082200727899390915
+    second: Picture_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: coconut_0
+      name: Picture_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 256
+        width: 1360
+        height: 768
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b4877bd1b7bfbd830800000000000000
-      internalID: 4097144792221710411
+      spriteID: 3c3c476f908094260800000000000000
+      internalID: 7082200727899390915
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      coconut_0: 4097144792221710411
+      Picture_0: 7082200727899390915
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -102,6 +102,7 @@ public class RobotMovement : MonoBehaviour
     private float moveDistance = 54f;
     Point startPoint = new Point(1, 1);
     public GameObject[] roomLocks;
+    public GameObject[] tables;
     int[,] matrix =
     {
         // 0  — стен нет (можно идти везде)
@@ -331,6 +332,8 @@ public class RobotMovement : MonoBehaviour
 
                                     roomLocks[1].GetComponent<Canvas>().enabled = true;
                                     roomLocks[3].GetComponent<Canvas>().enabled = true;
+
+                                    tables[0].GetComponent<Canvas>().enabled = true;
                                 }
                                 else if (n == 25)
                                 {
@@ -341,6 +344,8 @@ public class RobotMovement : MonoBehaviour
                                     roomLocks[3].GetComponent<Canvas>().enabled = false;
 
                                     roomLocks[4].GetComponent<Canvas>().enabled = true;
+
+                                    tables[3].GetComponent<Canvas>().enabled = true;
                                 }
                                 else if (n == 23)
                                 {
@@ -351,6 +356,8 @@ public class RobotMovement : MonoBehaviour
                                     roomLocks[1].GetComponent<Canvas>().enabled = false;
 
                                     roomLocks[2].GetComponent<Canvas>().enabled = true;
+
+                                    tables[1].GetComponent<Canvas>().enabled = true;
                                 }
                                 else if (n == 24)
                                 {
@@ -359,6 +366,8 @@ public class RobotMovement : MonoBehaviour
                                     actionPoints[n].current1 = 0;
                                     roomLocks[2].GetComponent<SpriteRenderer>().enabled = false;
                                     roomLocks[2].GetComponent<Canvas>().enabled = false;
+
+                                    tables[2].GetComponent<Canvas>().enabled = true;
                                 }
                             }
                         }
@@ -384,6 +393,8 @@ public class RobotMovement : MonoBehaviour
                                 roomLocks[4].GetComponent<Canvas>().enabled = false;
 
                                 roomLocks[5].GetComponent<Canvas>().enabled = true;
+
+                                tables[4].GetComponent<Canvas>().enabled = true;
                             }
                         }
                         else if (n == 27)
@@ -412,6 +423,8 @@ public class RobotMovement : MonoBehaviour
                                 actionPoints[n].current3 = 0;
                                 roomLocks[5].GetComponent<SpriteRenderer>().enabled = false;
                                 roomLocks[5].GetComponent<Canvas>().enabled = false;
+
+                                tables[5].GetComponent<Canvas>().enabled = true;
                             }
                         }
                     }

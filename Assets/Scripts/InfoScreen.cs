@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEditor.Progress;
 
 public class InfoScreen : MonoBehaviour, IPointerExitHandler
 {
@@ -83,7 +84,50 @@ public class InfoScreen : MonoBehaviour, IPointerExitHandler
 
     }
 
-
+    public void HelpButton(GameObject obj)
+    {
+        int n = (int)obj.GetComponent<Variables>().declarations.GetDeclaration("n").value;
+        Debug.Log("Clicked");
+        EventSystem.current.SetSelectedGameObject(null);
+        Transform item1 = transform.Find("Item_1");
+        Transform item2 = transform.Find("Item_2");
+        if (n == 0)
+        {
+            Sprite newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/Iron_ore");
+            item1.GetComponent<SpriteRenderer>().sprite = newSprite;
+            newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/Iron_ingot");
+            item2.GetComponent<SpriteRenderer>().sprite = newSprite;
+        }
+        else if (n == 1)
+        {
+            Sprite newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/Copper_ore");
+            item1.GetComponent<SpriteRenderer>().sprite = newSprite;
+            newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/Copper_ingot");
+            item2.GetComponent<SpriteRenderer>().sprite = newSprite;
+        }
+        else if (n == 2)
+        {
+            Sprite newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/Iron_ingot");
+            item1.GetComponent<SpriteRenderer>().sprite = newSprite;
+            newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/Iron_plate");
+            item2.GetComponent<SpriteRenderer>().sprite = newSprite;
+        }
+        else if (n == 3)
+        {
+            Sprite newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/Iron_plate");
+            item1.GetComponent<SpriteRenderer>().sprite = newSprite;
+            newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/Iron_pipe");
+            item2.GetComponent<SpriteRenderer>().sprite = newSprite;
+        }
+        else if (n == 4)
+        {
+            Sprite newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/Copper_ingot");
+            item1.GetComponent<SpriteRenderer>().sprite = newSprite;
+            newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/Copper_wire");
+            item2.GetComponent<SpriteRenderer>().sprite = newSprite;
+        }
+        transform.position = obj.transform.position;
+    }
     private Vector2 lastPointerPosition;
     private Camera lastEventCamera;
     public void OnPointerExit(PointerEventData eventData)
