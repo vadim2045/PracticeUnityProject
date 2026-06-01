@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -100,10 +101,11 @@ public class RobotMovement : MonoBehaviour
     public List<string> Robotics { get; private set; } = new List<string>();
     public bool isMoving = true;
     private float moveDistance = 54f;
-    Point startPoint = new Point(1, 1);
+    public Point startPoint;// = new Point(1, 1);
     public GameObject[] roomLocks;
     public GameObject[] tables;
-    int[,] matrix =
+    public GameObject robotsParent;
+    static int[,] matrix =
     {
         // 0  — стен нет (можно идти везде)
         // 1  — стена сверху (нельзя Up)
@@ -304,6 +306,7 @@ public class RobotMovement : MonoBehaviour
                             actionPoints[n].current1 -= 5;
                             actionPoints[n].current2 -= 3;
                             // ROBOT_SPAWN();
+                            SpawnRobot();
                         }
                     }
                     else if ((n >= 0 && n <= 7) || n == 21) // Crates 
@@ -446,61 +449,102 @@ public class RobotMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Keyboard.current.wKey.isPressed)
+        bool robotToCopy = (bool)GetComponent<Variables>().declarations.GetDeclaration("objectToCopy").value;
+        if (!robotToCopy)
         {
-            Move();
-        }
-        if (Keyboard.current.aKey.isPressed)
-        {
-            Turn("Повернуть налево");
-        }
-        if (Keyboard.current.dKey.isPressed)
-        {
-            Turn("Повернуть направо");
-        }
-        if (Keyboard.current.spaceKey.isPressed)
-        {
-            Interact();
-        }
 
-        if (Robotics.Count == 0 && (bool)GetComponent<Variables>().declarations.GetDeclaration("Loaded").value)
-            if (((string)GetComponent<Variables>().declarations.GetDeclaration("Robotics").value).Trim() != "")
+            if (Keyboard.current.wKey.isPressed)
             {
-                bool oneTime = (bool)GetComponent<Variables>().declarations.GetDeclaration("oneTime").value;
-                Robotics = ((string)GetComponent<Variables>().declarations.GetDeclaration("Robotics").value).Split(';').ToList<string>();
-                if (oneTime) GetComponent<Variables>().declarations.GetDeclaration("Loaded").value = false;
+                Move();
             }
-            else
+            if (Keyboard.current.aKey.isPressed)
             {
-                Robotics = new List<string>();
-                GetComponent<Variables>().declarations.GetDeclaration("Loaded").value = false;
-                // ОСТАНОВКА РОБОТА
+                Turn("Повернуть налево");
             }
-        if (Robotics.Count > 0)
-        {
-            if (Robotics.First() == "Идти" || Robotics.First().Split(' ')[0] == "Повернуть" || Robotics.First() == "Поднять/положить")
-                Act(Robotics.First());
+            if (Keyboard.current.dKey.isPressed)
+            {
+                Turn("Повернуть направо");
+            }
+            if (Keyboard.current.spaceKey.isPressed)
+            {
+                Interact();
+            }
 
-            else if (Robotics.First().Split(' ')[0] == "Повторить")
-            {
-                if (Robotics.Count > 1 && Robotics.First().Split(' ')[1] != "")
+            if (Robotics.Count == 0 && (bool)GetComponent<Variables>().declarations.GetDeclaration("Loaded").value)
+                if (((string)GetComponent<Variables>().declarations.GetDeclaration("Robotics").value).Trim() != "")
                 {
-                    int n = int.Parse(Robotics.First().Split(' ')[1]);
-
-                    Robotics.RemoveAt(0);
-
-                    for (int i = 0; i < n; i++)
-                    {
-                        Robotics.Insert(0, Robotics[0]);
-                    }
-
+                    bool oneTime = (bool)GetComponent<Variables>().declarations.GetDeclaration("oneTime").value;
+                    Robotics = ((string)GetComponent<Variables>().declarations.GetDeclaration("Robotics").value).Split(';').ToList<string>();
+                    if (oneTime) GetComponent<Variables>().declarations.GetDeclaration("Loaded").value = false;
                 }
                 else
                 {
-                    // Ошибка пользователю (цикл) и остановка робота
+                    Robotics = new List<string>();
+                    GetComponent<Variables>().declarations.GetDeclaration("Loaded").value = false;
+                    // ОСТАНОВКА РОБОТА
                 }
+            if (Robotics.Count > 0)
+            {
+                if (Robotics.First() == "Идти" || Robotics.First().Split(' ')[0] == "Повернуть" || Robotics.First() == "Поднять/положить")
+                    Act(Robotics.First());
+
+                else if (Robotics.First().Split(' ')[0] == "Повторить")
+                {
+                    if (Robotics.Count > 1 && Robotics.First().Split(' ')[1] != "")
+                    {
+                        int n = int.Parse(Robotics.First().Split(' ')[1]);
+
+                        Robotics.RemoveAt(0);
+
+                        for (int i = 0; i < n; i++)
+                        {
+                            Robotics.Insert(0, Robotics[0]);
+                        }
+
+                    }
+                    else
+                    {
+                        // Ошибка пользователю (цикл) и остановка робота
+                    }
+                }
+                Robotics.RemoveAt(0);
             }
-            Robotics.RemoveAt(0);
         }
+    }
+
+    static GameObject _robotToCopy;
+    public GameObject robotToCopy;
+    public GameObject listItemToCopy;
+    public GameObject RobotList;
+
+    public void SpawnRobot()
+    {
+        GameObject newRobot = Instantiate(_robotToCopy);
+        Vector2 newStartPoint = (Vector2)_robotToCopy.GetComponent<Variables>().declarations.GetDeclaration("startPosition").value;
+        newRobot.transform.SetParent(robotsParent.transform, true);
+        newRobot.GetComponentInChildren<RobotMovement>().startPoint = new Point((int)newStartPoint.x, (int)newStartPoint.y);
+        newRobot.GetComponentInChildren<RobotMovement>().robotToCopy = _robotToCopy;
+        newRobot.transform.localPosition = new Vector2(-9.5f + newStartPoint.x, 9.5f - newStartPoint.y);
+        newRobot.transform.localScale = _robotToCopy.transform.localScale;
+        newRobot.GetComponent<Variables>().declarations.GetDeclaration("Robot_ID").value = robotsParent.transform.childCount - 2; ////////
+        newRobot.GetComponent<Variables>().declarations.GetDeclaration("objectToCopy").value = false;
+        newRobot.GetComponent<Variables>().declarations.GetDeclaration("Resource_ID").value = 0;
+        newRobot.name = "Robot";
+
+        GameObject newItemList = Instantiate(listItemToCopy);
+        newItemList.transform.SetParent(RobotList.transform, true);
+        newItemList.transform.Find("Text_Robot").GetComponent<TextMeshProUGUI>().text = "Робот " + (robotsParent.transform.childCount - 1);
+
+    }
+
+    void Start()
+    {
+        if ((bool)GetComponent<Variables>().declarations.GetDeclaration("objectToCopy").value)
+        {
+            _robotToCopy = robotToCopy;
+        }
+
+        Vector2 newStartPoint = (Vector2)GetComponent<Variables>().declarations.GetDeclaration("startPosition").value;
+        startPoint = new Point((int)newStartPoint.x, (int)newStartPoint.y);
     }
 }
