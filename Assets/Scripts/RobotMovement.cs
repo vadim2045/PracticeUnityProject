@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -319,7 +320,7 @@ public class RobotMovement : MonoBehaviour
                         actionPoints[n].current1++;
                         if (n == 21 && actionPoints[n].current1 >= 25)
                         {
-                            // POBEDA(); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                            Pobeda(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                         }
                     }
                     else if (n >= 22)
@@ -558,5 +559,11 @@ public class RobotMovement : MonoBehaviour
 
         Vector2 newStartPoint = (Vector2)GetComponent<Variables>().declarations.GetDeclaration("startPosition").value;
         startPoint = new Point((int)newStartPoint.x, (int)newStartPoint.y);
+    }
+
+    public GameObject endCanvas;
+    void Pobeda()
+    {
+        endCanvas.GetComponent<Canvas>().enabled = true;
     }
 }
