@@ -31,7 +31,10 @@ public class RobotMovement : MonoBehaviour
         public int current1;
         public int current2;
         public int current3;
-        public ActionPoints(Point coords, string name, int id_out, int id_inp1 = -1, int id_inp2 = -1, int id_inp3 = -1, int current1 = 0, int current2 = 0, int current3 = 0)
+        public int id_inp1v;
+        public int id_inp2v;
+        public int id_inp3v;
+        public ActionPoints(Point coords, string name, int id_out, int id_inp1 = -1, int id_inp2 = -1, int id_inp3 = -1, int current1 = 0, int current2 = 0, int current3 = 0, int id_inp1v = 0, int id_inp2v = 0, int id_inp3v = 0)
         {
             this.coords = coords;
             this.name = name;
@@ -42,6 +45,9 @@ public class RobotMovement : MonoBehaviour
             this.current1 = current1;
             this.current2 = current2;
             this.current3 = current3;
+            this.id_inp1v = id_inp1v;
+            this.id_inp2v = id_inp2v;
+            this.id_inp3v = id_inp3v;
         }
     }
     enum Resources
@@ -59,12 +65,12 @@ public class RobotMovement : MonoBehaviour
     };
     static public ActionPoints[] actionPoints = // Присутствует возможность класть\брать предметы черзе стены, это не баг, а фича!!! (iron plate, iron ingot, copper wire)
     {
-        new ActionPoints(new Point (2, 0), "Iron ingot crate", 2, 2), // 0
-        new ActionPoints(new Point (3, 0), "Copper ingot crate", 6, 6),
-        new ActionPoints(new Point (4, 0), "Iron plate crate", 3, 3),
-        new ActionPoints(new Point (5, 0), "Copper wire crate", 7, 7),
-        new ActionPoints(new Point (6, 0), "Iron pipe crate", 4, 4),
-        new ActionPoints(new Point (7, 0), "Microchip crate", 8, 8),
+        new ActionPoints(new Point (2, 0), "Iron ingot crate", 2, id_inp1:2, id_inp1v:2), // 0
+        new ActionPoints(new Point (3, 0), "Copper ingot crate", 6, id_inp1:6, id_inp1v:6),
+        new ActionPoints(new Point (4, 0), "Iron plate crate", 3, id_inp1:3, id_inp1v:3),
+        new ActionPoints(new Point (5, 0), "Copper wire crate", 7, id_inp1:7, id_inp1v:7),
+        new ActionPoints(new Point (6, 0), "Iron pipe crate", 4, id_inp1:4, id_inp1v:4),
+        new ActionPoints(new Point (7, 0), "Microchip crate", 8, id_inp1:8, id_inp1v:8),
 
         new ActionPoints(new Point (0, 0), "Iron ore", 1, 1, current1:10000000), //6
         new ActionPoints(new Point (0, 2), "Copper ore", 5, 5, current1:10000000),
@@ -91,12 +97,12 @@ public class RobotMovement : MonoBehaviour
 
         new ActionPoints(new Point (18, 3), "Energy station input", -1, 8), // 21
 
-        new ActionPoints(new Point (2, 5), "Iron furnace unlock", -1, 1), // 22
-        new ActionPoints(new Point (5, 7), "Iron plate unlock", -1, 2), // 23
-        new ActionPoints(new Point (10, 7), "Iron pipe unlock", -1, 3), // 24
-        new ActionPoints(new Point (2, 10), "Copper furnace unlock", -1, 2), // 25
-        new ActionPoints(new Point (5, 12), "Copper wire unlock", -1, 3, 6), // 26
-        new ActionPoints(new Point (10, 12), "Microchip unlock", -1, 3, 4, 7) // 27
+        new ActionPoints(new Point (2, 5), "Iron furnace unlock", -1, id_inp1:1, id_inp1v:1), // 22
+        new ActionPoints(new Point (5, 7), "Iron plate unlock", -1, id_inp1:2, id_inp1v:2), // 23
+        new ActionPoints(new Point (10, 7), "Iron pipe unlock", -1, id_inp1:3, id_inp1v:3), // 24
+        new ActionPoints(new Point (2, 10), "Copper furnace unlock", -1, id_inp1:2, id_inp1v:2), // 25
+        new ActionPoints(new Point (5, 12), "Copper wire unlock", -1, id_inp1:3, id_inp2:6, id_inp1v:3, id_inp2v:6), // 26
+        new ActionPoints(new Point (10, 12), "Microchip unlock", -1, id_inp1:3, id_inp2:4, id_inp3:7, id_inp1v:3, id_inp2v:4, id_inp3v:7) // 27
     };
     public List<string> Robotics { get; private set; } = new List<string>();
     public bool isMoving = true;
@@ -212,7 +218,6 @@ public class RobotMovement : MonoBehaviour
     void Interact()
     {
         int ID_in_hand = (int)GetComponent<Variables>().declarations.GetDeclaration("Resource_ID").value;
-        bool canMove = ((matrix[startPoint.X, startPoint.Y] & newRotation(rotation)) == 0);
         bool x = false, y = false;
         int k = 0;
         switch (rotation)
@@ -379,19 +384,21 @@ public class RobotMovement : MonoBehaviour
                             if (actionPoints[n].id_inp1 == ID_in_hand && actionPoints[n].current1 <= 10)
                             {
                                 actionPoints[n].current1++;
+                                if (actionPoints[n].current1 >= 10)
+                                    actionPoints[n].id_inp1 = -1;
                             }
                             else if (actionPoints[n].id_inp2 == ID_in_hand && actionPoints[n].current2 <= 20)
                             {
                                 actionPoints[n].current2++;
+                                if (actionPoints[n].current2 >= 20)
+                                    actionPoints[n].id_inp2 = -1;
                             }
                             if (actionPoints[n].current1 >= 10 && actionPoints[n].current2 >= 20) // For unlock wire 
                             {
                                 // UNLOCK ROOM
-                                matrix[actionPoints[n].coords.X - 1, actionPoints[n].coords.Y] = 0;
-                                actionPoints[n].id_inp1 = -1;
-                                actionPoints[n].id_inp2 = -1;
                                 actionPoints[n].current1 = 0;
                                 actionPoints[n].current2 = 0;
+                                matrix[actionPoints[n].coords.X - 1, actionPoints[n].coords.Y] = 0;
                                 roomLocks[4].GetComponent<SpriteRenderer>().enabled = false;
                                 roomLocks[4].GetComponent<Canvas>().enabled = false;
 
@@ -405,25 +412,28 @@ public class RobotMovement : MonoBehaviour
                             if (actionPoints[n].id_inp1 == ID_in_hand && actionPoints[n].current1 <= 20)
                             {
                                 actionPoints[n].current1++;
+                                if (actionPoints[n].current1 >= 20)
+                                    actionPoints[n].id_inp1 = -1;
                             }
                             else if (actionPoints[n].id_inp2 == ID_in_hand && actionPoints[n].current2 <= 10)
                             {
                                 actionPoints[n].current2++;
+                                if (actionPoints[n].current2 >= 10)
+                                    actionPoints[n].id_inp2 = -1;
                             }
                             else if (actionPoints[n].id_inp3 == ID_in_hand && actionPoints[n].current3 <= 30)
                             {
                                 actionPoints[n].current3++;
+                                if (actionPoints[n].current3 >= 30)
+                                    actionPoints[n].id_inp3 = -1;
                             } 
                             if (actionPoints[n].current1 >= 20 && actionPoints[n].current2 >= 10 && actionPoints[n].current3 >= 30) // Microchip room
                             {
                                 // UNLOCK ROOM
-                                matrix[actionPoints[n].coords.X - 1, actionPoints[n].coords.Y] = 1;
-                                actionPoints[n].id_inp1 = -1;
-                                actionPoints[n].id_inp2 = -1;
-                                actionPoints[n].id_inp3 = -1;
                                 actionPoints[n].current1 = 0;
                                 actionPoints[n].current2 = 0;
                                 actionPoints[n].current3 = 0;
+                                matrix[actionPoints[n].coords.X - 1, actionPoints[n].coords.Y] = 1;
                                 roomLocks[5].GetComponent<SpriteRenderer>().enabled = false;
                                 roomLocks[5].GetComponent<Canvas>().enabled = false;
 
@@ -445,29 +455,31 @@ public class RobotMovement : MonoBehaviour
         "", "Iron_ore", "Iron_ingot", "Iron_plate", "Iron_pipe", "Copper_ore", "Copper_ingot", "Copper_wire", "Microchip"
     };
 
-
+    public static int movement = 0;
 
     void FixedUpdate()
     {
         bool robotToCopy = (bool)GetComponent<Variables>().declarations.GetDeclaration("objectToCopy").value;
         if (!robotToCopy)
         {
-
-            if (Keyboard.current.wKey.isPressed)
+            if (movement == 8)
             {
-                Move();
-            }
-            if (Keyboard.current.aKey.isPressed)
-            {
-                Turn("Повернуть налево");
-            }
-            if (Keyboard.current.dKey.isPressed)
-            {
-                Turn("Повернуть направо");
-            }
-            if (Keyboard.current.spaceKey.isPressed)
-            {
-                Interact();
+                if (Keyboard.current.wKey.isPressed)
+                {
+                    Move();
+                }
+                if (Keyboard.current.aKey.isPressed)
+                {
+                    Turn("Повернуть налево");
+                }
+                if (Keyboard.current.dKey.isPressed)
+                {
+                    Turn("Повернуть направо");
+                }
+                if (Keyboard.current.spaceKey.isPressed)
+                {
+                    Interact();
+                }
             }
 
             if (Robotics.Count == 0 && (bool)GetComponent<Variables>().declarations.GetDeclaration("Loaded").value)

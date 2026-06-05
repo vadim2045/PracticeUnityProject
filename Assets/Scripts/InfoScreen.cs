@@ -11,7 +11,6 @@ public class InfoScreen : MonoBehaviour, IPointerExitHandler
     public void Enter(GameObject obj)
     {
         int n = (int)obj.GetComponent<Variables>().declarations.GetDeclaration("n").value;
-        Debug.Log("Clicked");
         transform.position = obj.transform.position;
 
         //RobotMovement.actionPoints[n].
@@ -21,7 +20,7 @@ public class InfoScreen : MonoBehaviour, IPointerExitHandler
         {
             int max = (n - 21) * 5;
             text1.GetComponent<TextMeshProUGUI>().text = RobotMovement.actionPoints[n].current1.ToString() + "/" + max.ToString();
-            Sprite newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/" + RobotMovement.Images[RobotMovement.actionPoints[n].id_inp1]);
+            Sprite newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/" + RobotMovement.Images[RobotMovement.actionPoints[n].id_inp1v]);
             item1.GetComponent<SpriteRenderer>().sprite = newSprite;
         }
         else if (n == 26 || n == 27) // For unlock room with 2-3 resource
@@ -32,11 +31,11 @@ public class InfoScreen : MonoBehaviour, IPointerExitHandler
             int max2 = 20;
 
             text1.GetComponent<TextMeshProUGUI>().text = RobotMovement.actionPoints[n].current1.ToString() + "/" + max1.ToString();
-            Sprite newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/" + RobotMovement.Images[RobotMovement.actionPoints[n].id_inp1]);
+            Sprite newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/" + RobotMovement.Images[RobotMovement.actionPoints[n].id_inp1v]);
             item1.GetComponent<SpriteRenderer>().sprite = newSprite;
 
             text2.GetComponent<TextMeshProUGUI>().text = RobotMovement.actionPoints[n].current2.ToString() + "/" + max2.ToString();
-            Sprite newSprite1 = UnityEngine.Resources.Load<Sprite>("Sprites/" + RobotMovement.Images[RobotMovement.actionPoints[n].id_inp2]);
+            Sprite newSprite1 = UnityEngine.Resources.Load<Sprite>("Sprites/" + RobotMovement.Images[RobotMovement.actionPoints[n].id_inp2v]);
             item2.GetComponent<SpriteRenderer>().sprite = newSprite1;
 
             if (n == 27) // For unlock room with 3 resource
@@ -47,21 +46,21 @@ public class InfoScreen : MonoBehaviour, IPointerExitHandler
                 max2 = 10;
                 int max3 = 30;
                 text1.GetComponent<TextMeshProUGUI>().text = RobotMovement.actionPoints[n].current1.ToString() + "/" + max1.ToString();
-                newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/" + RobotMovement.Images[RobotMovement.actionPoints[n].id_inp1]);
+                newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/" + RobotMovement.Images[RobotMovement.actionPoints[n].id_inp1v]);
                 item1.GetComponent<SpriteRenderer>().sprite = newSprite;
                 text2.GetComponent<TextMeshProUGUI>().text = RobotMovement.actionPoints[n].current2.ToString() + "/" + max2.ToString();
-                newSprite1 = UnityEngine.Resources.Load<Sprite>("Sprites/" + RobotMovement.Images[RobotMovement.actionPoints[n].id_inp2]);
+                newSprite1 = UnityEngine.Resources.Load<Sprite>("Sprites/" + RobotMovement.Images[RobotMovement.actionPoints[n].id_inp2v]);
                 item2.GetComponent<SpriteRenderer>().sprite = newSprite1;
 
                 text3.GetComponent<TextMeshProUGUI>().text = RobotMovement.actionPoints[n].current3.ToString() + "/" + max3.ToString();
-                Sprite newSprite3 = UnityEngine.Resources.Load<Sprite>("Sprites/" + RobotMovement.Images[RobotMovement.actionPoints[n].id_inp3]);
+                Sprite newSprite3 = UnityEngine.Resources.Load<Sprite>("Sprites/" + RobotMovement.Images[RobotMovement.actionPoints[n].id_inp3v]);
                 item3.GetComponent<SpriteRenderer>().sprite = newSprite3;
             }
         }
         else if (n >= 0 && n <= 5)
         {
             text1.GetComponent<TextMeshProUGUI>().text = RobotMovement.actionPoints[n].current1.ToString();
-            Sprite newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/" + RobotMovement.Images[RobotMovement.actionPoints[n].id_inp1]);
+            Sprite newSprite = UnityEngine.Resources.Load<Sprite>("Sprites/" + RobotMovement.Images[RobotMovement.actionPoints[n].id_inp1v]);
             item1.GetComponent<SpriteRenderer>().sprite = newSprite;
             transform.position = obj.transform.position + new Vector3(0, -30f, 0);
         }
@@ -86,7 +85,6 @@ public class InfoScreen : MonoBehaviour, IPointerExitHandler
     public void HelpButton(GameObject obj)
     {
         int n = (int)obj.GetComponent<Variables>().declarations.GetDeclaration("n").value;
-        Debug.Log("Clicked");
         EventSystem.current.SetSelectedGameObject(null);
         Transform item1 = transform.Find("Item_1");
         Transform item2 = transform.Find("Item_2");
@@ -144,7 +142,6 @@ public class InfoScreen : MonoBehaviour, IPointerExitHandler
             lastEventCamera))
         {
             transform.position = new Vector3(-1000, -1000, -1000);
-            Debug.Log("Bye bye");
         }
     }
 

@@ -16,6 +16,7 @@ public class AlgSave : MonoBehaviour
     public GameObject rotateBlock;
     public GameObject repeatBlock;
     public GameObject pickBlock;
+    public GameObject ctrlVbutton;
     string actionGlobal;
     static public int Robot_ID = 0; // NEW ROBOT ID
     public void getList()
@@ -81,7 +82,11 @@ public class AlgSave : MonoBehaviour
     public void SetRobotID()
     {
         Robot_ID = int.Parse(transform.Find("Text_Robot").GetComponent<TextMeshProUGUI>().text.Split(' ')[1]) - 1;
-        Debug.Log(Robot_ID);
+        LoadDropZone(Robot_ID);
+    }
+
+    void LoadDropZone(int id)
+    {
         for (int i = dropZone.transform.childCount - 1; i >= 0; i--) //очистка дропзоны
         {
             Transform T = dropZone.transform.GetChild(i);
@@ -90,7 +95,7 @@ public class AlgSave : MonoBehaviour
 
         for (int i = 0; i < RoboticsParent.transform.childCount; i++)
         {
-            if ((int)(RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Robot_ID").value) == Robot_ID)
+            if ((int)(RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Robot_ID").value) == id)
             {
                 if ((bool)RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("oneTime").value) //поворот switch в нужную сторону
                     oneTimeSwitch.transform.localEulerAngles = new Vector3(0, 0, 90);
@@ -135,6 +140,43 @@ public class AlgSave : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    private static int? RobotIDCopied;
+
+    public void ctrlC()
+    {
+        RobotIDCopied = Robot_ID;
+        if (RobotIDCopied != null)
+            ctrlVbutton.transform.GetComponent<Button>().interactable = true;
+    }
+
+    public void ctrlV()
+    {
+        if (RobotIDCopied != null)
+            LoadDropZone(RobotIDCopied.Value);
+    }
+    
+    public void ctrlVVisibility()
+    {
+        if (RobotIDCopied != null)
+            ctrlVbutton.transform.GetComponent<Button>().interactable = true;
+    }
+
+    public void RobotsColorChange(bool clear)
+    {
+        Color selectedColor;
+        if (clear)
+        {
+            selectedColor = Color.white;//selectedColor = new Color(255, 255, 255, 255);
+        }
+        else selectedColor = Color.green;//selectedColor = new Color(139, 226, 65, 255);
+        for (int i = 0; i < RoboticsParent.transform.childCount; i++)
+        {
+            if (i - 1 == Robot_ID)
+                RoboticsParent.transform.GetChild(i).GetComponent<SpriteRenderer>().color = selectedColor;
+            else RoboticsParent.transform.GetChild(i).GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 }
