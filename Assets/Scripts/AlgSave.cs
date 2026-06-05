@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,8 +11,14 @@ public class AlgSave : MonoBehaviour
 {
     public GameObject RoboticsParent;
     public GameObject dropZone;
+    public GameObject oneTimeSwitch;
+    public GameObject moveBlock;
+    public GameObject rotateBlock;
+    public GameObject repeatBlock;
+    public GameObject pickBlock;
+    public GameObject ctrlVbutton;
     string actionGlobal;
-    int Robot_ID = 0; // NEW ROBOT ID
+    static public int Robot_ID = 0; // NEW ROBOT ID
     public void getList()
     {
         actionGlobal = "";
@@ -40,6 +47,136 @@ public class AlgSave : MonoBehaviour
                 RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Robotics").value = actionGlobal;
                 RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Loaded").value = true;
             }
+        }
+    }
+    public void clearList()
+    {
+        actionGlobal = ";";
+        for (int i = dropZone.transform.childCount - 1; i >= 0; i--)
+        {
+            Transform T = dropZone.transform.GetChild(i);
+            Destroy(T.GameObject());
+        }
+        for (int i = 0; i < RoboticsParent.transform.childCount; i++)
+        {
+            if ((int)(RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Robot_ID").value) == Robot_ID)
+            {
+                RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Robotics").value = actionGlobal;
+                RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Loaded").value = false;
+            }
+        }
+    }
+    public void switchList()
+    {
+        transform.Rotate(0, 0, 180);
+        for (int i = 0; i < RoboticsParent.transform.childCount; i++)
+        {
+            if ((int)(RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Robot_ID").value) == Robot_ID)
+            {
+                RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("oneTime").value = !(bool)RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("oneTime").value;
+                RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Loaded").value = false;
+            }
+        }
+    }
+
+    public void SetRobotID()
+    {
+        Robot_ID = int.Parse(transform.Find("Text_Robot").GetComponent<TextMeshProUGUI>().text.Split(' ')[1]) - 1;
+        LoadDropZone(Robot_ID);
+    }
+
+    void LoadDropZone(int id)
+    {
+        for (int i = dropZone.transform.childCount - 1; i >= 0; i--) //очистка дропзоны
+        {
+            Transform T = dropZone.transform.GetChild(i);
+            Destroy(T.GameObject());
+        }
+
+        for (int i = 0; i < RoboticsParent.transform.childCount; i++)
+        {
+            if ((int)(RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Robot_ID").value) == id)
+            {
+                if ((bool)RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("oneTime").value) //поворот switch в нужную сторону
+                    oneTimeSwitch.transform.localEulerAngles = new Vector3(0, 0, 90);
+                else oneTimeSwitch.transform.localEulerAngles = new Vector3(0, 0, 270);
+
+                actionGlobal = (string)RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Robotics").value;
+                List<string> Robotics = new List<string>();
+                if (actionGlobal != ";")
+                    Robotics = ((string)RoboticsParent.transform.GetChild(i).GetComponent<Variables>().declarations.GetDeclaration("Robotics").value).Split(';').ToList<string>(); //загрузка в дропзону списка нужных команд
+                if (Robotics.Count > 0)
+                {
+                    foreach (string s in Robotics)
+                    {
+                        GameObject copy = null;
+                        if (s == "Идти")
+                        {
+                            copy = Instantiate(moveBlock);
+                        }
+                        else if (s.Split(' ')[0] == "Повернуть")
+                        {
+                            copy = Instantiate(rotateBlock);
+                            copy.transform.Find("Dropdown").GetComponent<Image>().raycastTarget = true;
+                            if (s.Split(' ')[1] == "налево")
+                                copy.transform.Find("Dropdown").GetComponent<TMP_Dropdown>().value = 0;
+                            else copy.transform.Find("Dropdown").GetComponent<TMP_Dropdown>().value = 1;
+                        }
+                        else if (s == "Поднять/положить")
+                        {
+                            copy = Instantiate(pickBlock);
+                        }
+                        else if (s.Split(' ')[0] == "Повторить")
+                        {
+                            copy = Instantiate(repeatBlock);
+                            copy.transform.Find("InputField").GetComponent<Image>().raycastTarget = true;
+                            copy.transform.Find("InputField").GetComponent<InputField>().text = s.Split(' ')[1];
+                        }
+                        if (s.Trim() != "")
+                        {
+                            copy.GetComponent<Variables>().declarations.GetDeclaration("Clone").value = true;
+                            copy.transform.SetParent(dropZone.transform, true);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static int? RobotIDCopied;
+
+    public void ctrlC()
+    {
+        RobotIDCopied = Robot_ID;
+        if (RobotIDCopied != null)
+            ctrlVbutton.transform.GetComponent<Button>().interactable = true;
+    }
+
+    public void ctrlV()
+    {
+        if (RobotIDCopied != null)
+            LoadDropZone(RobotIDCopied.Value);
+    }
+    
+    public void ctrlVVisibility()
+    {
+        if (RobotIDCopied != null)
+            ctrlVbutton.transform.GetComponent<Button>().interactable = true;
+    }
+
+    public void RobotsColorChange(bool clear)
+    {
+        Color selectedColor;
+        if (clear)
+        {
+            selectedColor = Color.white;//selectedColor = new Color(255, 255, 255, 255);
+        }
+        else selectedColor = Color.green;//selectedColor = new Color(139, 226, 65, 255);
+        for (int i = 0; i < RoboticsParent.transform.childCount; i++)
+        {
+            if (i - 1 == Robot_ID)
+                RoboticsParent.transform.GetChild(i).GetComponent<SpriteRenderer>().color = selectedColor;
+            else RoboticsParent.transform.GetChild(i).GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 }

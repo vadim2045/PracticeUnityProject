@@ -26,6 +26,8 @@ public class DraggableElement : MonoBehaviour, IBeginDragHandler, IEndDragHandle
         else
         {
             obj = Instantiate(gameObject);
+            obj.transform.position = transform.position;
+
             obj.GetComponent<Variables>().declarations.GetDeclaration("Clone").value = true;
             
         }
@@ -42,8 +44,8 @@ public class DraggableElement : MonoBehaviour, IBeginDragHandler, IEndDragHandle
 
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta;
-        
+        rectTransform.anchoredPosition += eventData.delta * 1080 / Screen.height;
+
     }
 
     public void OnEndDrag(PointerEventData eventData)
